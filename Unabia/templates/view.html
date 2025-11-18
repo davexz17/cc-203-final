@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ recipe[1] }}</title> <!-- title -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ recipe[1] }}</h1>
+
+    <p><strong>Category:</strong> {{ recipe[2] or "Not specified" }}</p>
+    <p><strong>Date Added:</strong> {{ recipe[6] or "Unknown" }}</p> <!-- date_added -->
+
+    <h3>Ingredients:</h3>
+    <pre>{{ recipe[3] }}</pre>
+
+    <h3>Instructions:</h3>
+    <pre>{{ recipe[4] }}</pre>
+
+    {% if session.get('user_id') == recipe[5] %}
+        <a href="{{ url_for('edit', recipe_id=recipe[0]) }}">Edit</a> |
+        <a href="{{ url_for('delete', recipe_id=recipe[0]) }}" onclick="return confirm('Are you sure?')">Delete</a>
+    {% endif %}
+
+    <br><br>
+    <a href="{{ url_for('index') }}">Back to Recipes</a>
+</body>
+</html>

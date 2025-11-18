@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Recipes</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <input name="search" value="{{ search }}" class="form-control" placeholder="Search">
+    </div>
+    <div class="col-auto">
+        <input name="category" value="{{ category }}" class="form-control" placeholder="Category">
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary">Filter</button>
+        <a href="/" class="btn btn-secondary">Clear</a>
+    </div>
+</form>
+
+<hr>
+
+<h3>Add New Recipe</h3>
+
+<form method="post" action="/create" class="mb-5">
+    <input name="title" class="form-control mb-2" placeholder="Title" required>
+   <select name="category" class="form-control mb-2">
+    <option value="">Choose category...</option>
+    {% for category in CATEGORIES %}
+        <option value="{{ category }}">{{ category }}</option>
+    {% endfor %}
+</select>
+
+    <textarea name="ingredients" class="form-control mb-2" placeholder="Ingredients" required></textarea>
+    <textarea name="instructions" class="form-control mb-2" placeholder="Instructions" required></textarea>
+    <button class="btn btn-success">Create Recipe</button>
+</form>
+
+<hr>
+
+<h3>Recipe List</h3>
+
+<ul class="list-group">
+    {% for r in recipes %}
+    <li class="list-group-item">
+        <a href="{{ url_for('view', recipe_id=r[0]) }}">
+            {{ r[1] }} ({{ r[2] or 'No category' }})
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

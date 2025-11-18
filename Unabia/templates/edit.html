@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Edit Recipe</h2>
+
+<form method="post">
+    <input name="title" value="{{ recipe[1] }}" class="form-control mb-2" required>
+<select name="category" class="form-control mb-2">
+    {% for c in CATEGORIES %}
+        <option value="{{ c }}" {% if c == recipe[2] %}selected{% endif %}>{{ c }}</option>
+    {% endfor %}
+    <option value="" {% if recipe[2] == "" %}selected{% endif %}>Other</option>
+</select>
+    <textarea name="ingredients" class="form-control mb-2" required>{{ recipe[3] }}</textarea>
+    <textarea name="instructions" class="form-control mb-2" required>{{ recipe[4] }}</textarea>
+
+    <button class="btn btn-primary">Save Changes</button>
+</form>
+
+{% endblock %}
