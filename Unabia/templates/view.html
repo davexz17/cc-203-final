@@ -1,28 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>{{ recipe[1] }}</title> <!-- title -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<title>{{ recipe[1] }}</title>
+<style>
+body {
+font-family: Arial;
+margin: 40px auto;
+max-width: 700px;
+line-height: 1.6;
+}
+.card {
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+h1 { margin-bottom: 5px; }
+.btn {
+padding: 8px 14px;
+display: inline-block;
+background: #333;
+color: #fff;
+border-radius: 6px;
+text-decoration: none;
+margin-right: 10px;
+}
+.favorite-btn { background: #c0392b; }
+</style>
 </head>
 <body>
-    <h1>{{ recipe[1] }}</h1>
+<div class="card">
+<h1>{{ recipe[1] }}</h1>
+<p><b>Category:</b> {{ recipe[2] }}</p>
+<p><b>Date Added:</b> {{ recipe[6] }}</p>
 
-    <p><strong>Category:</strong> {{ recipe[2] or "Not specified" }}</p>
-    <p><strong>Date Added:</strong> {{ recipe[6] or "Unknown" }}</p> <!-- date_added -->
 
-    <h3>Ingredients:</h3>
-    <pre>{{ recipe[3] }}</pre>
+<h3>Ingredients</h3>
+<p>{{ recipe[3] }}</p>
 
-    <h3>Instructions:</h3>
-    <pre>{{ recipe[4] }}</pre>
 
-    {% if session.get('user_id') == recipe[5] %}
-        <a href="{{ url_for('edit', recipe_id=recipe[0]) }}">Edit</a> |
-        <a href="{{ url_for('delete', recipe_id=recipe[0]) }}" onclick="return confirm('Are you sure?')">Delete</a>
-    {% endif %}
+<h3>Instructions</h3>
+<p>{{ recipe[4] }}</p>
 
-    <br><br>
-    <a href="{{ url_for('index') }}">Back to Recipes</a>
+
+<br>
+{% if session.get("user_id") == recipe[5] %}
+<a class="btn" href="/edit/{{ recipe[0] }}">Edit</a>
+<a class="btn" href="/delete/{{ recipe[0] }}">Delete</a>
+{% endif %}
+
+
+<br><br>
+<a href="/">Back</a>
+</div>
 </body>
 </html>
